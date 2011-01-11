@@ -84,9 +84,10 @@ fi
 rm -rf $RPM_BUILD_ROOT
 
 %files
-%defattr(-,elasticsearch,elasticsearch,-)
+%defattr(-,root,root,-)
 %{_sysconfdir}/init.d/elasticsearch
-%{_sysconfdir}/elasticsearch
+%defattr(-,elasticsearch,elasticsearch,-)
+%config(noreplace) %{_sysconfdir}/elasticsearch
 %{_localstatedir}/run/elasticsearch
 %dir %{_javadir}/elasticsearch
 %dir %{_localstatedir}/log/elasticsearch

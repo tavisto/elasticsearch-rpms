@@ -6,7 +6,8 @@
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
 # Short-Description: Starts elasticsearch
-# Description:        
+# chkconfig: 2345 80 15
+# Description: Elasticsearch        
 ### END INIT INFO
 
 # Source function library.
