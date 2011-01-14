@@ -1,9 +1,9 @@
 Name:           elasticsearch
-Version:        0.14.1
+Version:        0.14.2
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
-Group:          Development/Libraries
+Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.elasticsearch.com
 Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.tar.gz
@@ -37,7 +37,13 @@ rm -rf $RPM_BUILD_ROOT
 #libs
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/lib/sigar
 %{__install} -p -m 644 lib/*.jar %{buildroot}%{_javadir}/%{name}/lib
-%{__install} -p -m 644 lib/sigar/* %{buildroot}%{_javadir}/%{name}/lib/sigar
+%{__install} -p -m 644 lib/sigar/*.jar %{buildroot}%{_javadir}/%{name}/lib/sigar
+%ifarch i386
+%{__install} -p -m 644 lib/sigar/libsigar-x86-linux.so %{buildroot}%{_javadir}/%{name}/lib/sigar
+%endif
+%ifarch x86_64
+%{__install} -p -m 644 lib/sigar/libsigar-amd64-linux.so %{buildroot}%{_javadir}/%{name}/lib/sigar
+%endif
 
 # config
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch 
@@ -68,7 +74,7 @@ fi
 # create elasticsearch user
 if ! getent passwd elasticsearch >/dev/null; then
         useradd -r -g elasticsearch -d %{_javadir}/%{name} \
-            -s /sbin/nologin -c "Elasticsearch, you know for search." elasticsearch 
+            -s /sbin/nologin -c "Elasticsearch, you know for search." elasticsearch
 fi
 
 %post
@@ -95,5 +101,8 @@ rm -rf $RPM_BUILD_ROOT
 %doc LICENSE.txt  NOTICE.txt  README.textile
 
 %changelog
+* Fri Jan 14 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.2-1
+- New upstream version, and added specific arch suport for the sigar libraries.
+
 * Tue Jan 4 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.1-1
 - Initial package
