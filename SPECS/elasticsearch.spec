@@ -1,3 +1,5 @@
+%define debug_package %{nil}
+
 Name:           elasticsearch
 Version:        0.14.2
 Release:        1%{?dist}
@@ -7,7 +9,9 @@ Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.elasticsearch.com
 Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.tar.gz
-Source1:        elasticsearch.init
+Source1:        init.d/elasticsearch
+Source2:        logrotate.d/elasticsearch
+Source3:        config/logrotate.yaml 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -30,9 +34,9 @@ true
 rm -rf $RPM_BUILD_ROOT
 
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/bin
-%{__install} -p -m 744 bin/elasticsearch %{buildroot}%{_javadir}/%{name}/bin
-%{__install} -p -m 744 bin/elasticsearch.in.sh %{buildroot}%{_javadir}/%{name}/bin
-%{__install} -p -m 744 bin/plugin %{buildroot}%{_javadir}/%{name}/bin
+%{__install} -p -m 755 bin/elasticsearch %{buildroot}%{_javadir}/%{name}/bin
+%{__install} -p -m 644 bin/elasticsearch.in.sh %{buildroot}%{_javadir}/%{name}/bin
+%{__install} -p -m 755 bin/plugin %{buildroot}%{_javadir}/%{name}/bin
 
 #libs
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/lib/sigar
@@ -74,7 +78,7 @@ fi
 # create elasticsearch user
 if ! getent passwd elasticsearch >/dev/null; then
         useradd -r -g elasticsearch -d %{_javadir}/%{name} \
-            -s /sbin/nologin -c "Elasticsearch, you know for search." elasticsearch
+            -s /sbin/nologin -c "Elasticsearch: You know, for search." elasticsearch
 fi
 
 %post
@@ -92,13 +96,14 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/init.d/elasticsearch
-%defattr(-,elasticsearch,elasticsearch,-)
-%config(noreplace) %{_sysconfdir}/elasticsearch
-%{_localstatedir}/run/elasticsearch
 %dir %{_javadir}/elasticsearch
-%dir %{_localstatedir}/log/elasticsearch
 %{_javadir}/elasticsearch/*
 %doc LICENSE.txt  NOTICE.txt  README.textile
+%defattr(-,elasticsearch,elasticsearch,-)
+%{_javadir}/elasticsearch/data
+%config(noreplace) %{_sysconfdir}/elasticsearch
+%{_localstatedir}/run/elasticsearch
+%dir %{_localstatedir}/log/elasticsearch
 
 %changelog
 * Fri Jan 14 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.2-1
