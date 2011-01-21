@@ -1,0 +1,72 @@
+#! /bin/bash
+### BEGIN INIT INFO
+# Provides:          elasticsearch
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:      
+# Default-Stop:      0 1 6
+# Short-Description: Starts elasticsearch
+# chkconfig: - 80 15
+# Description: Elasticsearch        
+### END INIT INFO
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+ES_HOME=/usr/share/java/elasticsearch
+ES_USER=elasticsearch
+ES_INCLUDE=$ES_HOME/bin/elasticsearch.in.sh
+
+DAEMON=$ES_HOME/bin/elasticsearch
+NAME=elasticsearch
+PID_FILE=${PIDFILE-/var/run/$NAME/$NAME.pid}
+LOCK_FILE=${LOCKFILE-/var/lock/subsys/$NAME}
+LOG_DIR=/var/log/$NAME
+DATA_DIR=$ES_HOME/data
+WORK_DIR=/tmp/$NAME
+CONFIG_FILE=/etc/$NAME/elasticsearch.yml
+CONFIG_DIR=/etc/$NAME
+DAEMON_OPTS="-p $PID_FILE -Des.path.conf=$CONFIG_DIR -Des.config=$CONFIG_FILE -Des.path.home=$ES_HOME -Des.path.logs=$LOG_DIR -Des.path.data=$DATA_DIR -Des.path.work=$WORK_DIR"
+
+start() {
+    echo -n $"Starting $NAME: "
+    mkdir -p $WORK_DIR
+    daemon --pidfile=${PID_FILE} --user $ES_USER $DAEMON $DAEMON_OPTS   
+    RETVAL=$?
+    echo
+    [ $RETVAL -eq 0 ] && touch $LOCK_FILE
+    return $RETVAL
+}
+
+stop() {
+	echo -n $"Stopping $NAME: "
+	killproc -p ${PID_FILE} -d 10 $DAEMON
+	RETVAL=$?
+	echo
+	[ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}
+    return $RETVAL
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop 
+    ;;
+  status)
+        status -p ${PID_FILE} $DAEMON
+	RETVAL=$?
+    ;;
+  restart|force-reload)
+    stop
+    start
+    ;;
+  *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|restart|force-reload}" >&2
+    RETVAL=2
+    ;;
+esac
+
+exit $RETVAL

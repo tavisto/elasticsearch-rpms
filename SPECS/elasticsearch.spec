@@ -2,16 +2,17 @@
 
 Name:           elasticsearch
 Version:        0.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.elasticsearch.com
 Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.tar.gz
-Source1:        init.d/elasticsearch
-Source2:        logrotate.d/elasticsearch
-Source3:        config/logrotate.yaml 
+Source1:        init.d-elasticsearch
+Source2:        logrotate.d-elasticsearch
+Source3:        config-logging.yml
+Source4:        config-elasticsearch.yml
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -51,13 +52,15 @@ rm -rf $RPM_BUILD_ROOT
 
 # config
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch 
-%{__install} -m 644 config/* %{buildroot}%{_sysconfdir}/%{name}
+%{__install} -m 644 config/elasticsearch.yml %{buildroot}%{_sysconfdir}/%{name}
+%{__install} -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/logging.yml
 
 # data
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/data
 
 # logs
 %{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
+%{__install} -D -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/elasticsearch
 
 # plugins 
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
@@ -96,6 +99,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/init.d/elasticsearch
+%{_sysconfdir}/logrotate.d/elasticsearch
 %dir %{_javadir}/elasticsearch
 %{_javadir}/elasticsearch/*
 %doc LICENSE.txt  NOTICE.txt  README.textile
@@ -106,6 +110,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/elasticsearch
 
 %changelog
+* Fri Jan 21 2011  0.14.2-2
+- Fixed the logging.yml and logrotate.d configs
+
 * Fri Jan 14 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.2-1
 - New upstream version, and added specific arch suport for the sigar libraries.
 
