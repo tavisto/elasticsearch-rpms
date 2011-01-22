@@ -12,7 +12,6 @@ Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.
 Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml
-Source4:        config-elasticsearch.yml
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -102,15 +101,15 @@ rm -rf $RPM_BUILD_ROOT
 %{_sysconfdir}/logrotate.d/elasticsearch
 %dir %{_javadir}/elasticsearch
 %{_javadir}/elasticsearch/*
+%config(noreplace) %{_sysconfdir}/elasticsearch
 %doc LICENSE.txt  NOTICE.txt  README.textile
 %defattr(-,elasticsearch,elasticsearch,-)
 %{_javadir}/elasticsearch/data
-%config(noreplace) %{_sysconfdir}/elasticsearch
 %{_localstatedir}/run/elasticsearch
 %dir %{_localstatedir}/log/elasticsearch
 
 %changelog
-* Fri Jan 21 2011  0.14.2-2
+* Fri Jan 21 2011  Tavis Aitken <tavisto@tavisto.net> - 0.14.2-2
 - Fixed the logging.yml and logrotate.d configs
 
 * Fri Jan 14 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.2-1
