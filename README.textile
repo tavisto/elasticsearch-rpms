@@ -1,0 +1,36 @@
+h1. Elasticsearch Rpms
+
+h2. An easy way to intall elasticsearch on fedora/rhel based systems.
+
+These rpms were built to have an easy way to install the elasticsearch
+binary distribution in a systemic way. 
+
+The only reason these packages are not submitted upstream is the
+requirements for packaging Java are fairly complicated and require building
+everything from source and using any other prevously package libraries.
+There were some glaring omissions from the package tree in order to use this
+one. 
+
+h2. I have not run these packages on a production sytem yet, so use at your
+own risk. 
+
+h3. Please file an issue if you try and use these and something doesn't work
+as you expect. 
+
+h2. This is not a repository you can just install from, none of these
+packages have been signed by any gpg keys of any kind. Hopefully soon there
+will be a home for them. 
+
+To install on a fedora or rhel system: 
+* Download the rpm that matches your system ( fc14 for Fedora 14, epel-5 for
+CentOS 5 etc.. )
+* install with yum
+<pre>yum install -nogpgcheck ${rpm} </pre>
+* Change any configs you need to
+* Start up the node 
+<pre>/etc/init.d/elasticsearch start</pre>
+* If you want it to start after restart 
+<pre>chkconfig elasticsearch on</pre>
+* Watch the log files
+<pre>tail -F /var/log/elasticsearch/elasticsearch.log</pre>
+* Search!
