@@ -2,7 +2,7 @@
 
 Name:           elasticsearch
 Version:        0.14.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -80,7 +80,7 @@ fi
 # create elasticsearch user
 if ! getent passwd elasticsearch >/dev/null; then
         useradd -r -g elasticsearch -d %{_javadir}/%{name} \
-            -s /sbin/nologin -c "Elasticsearch: You know, for search." elasticsearch
+            -s /sbin/nologin -c "You know, for search" elasticsearch
 fi
 
 %post
@@ -109,6 +109,9 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_localstatedir}/log/elasticsearch
 
 %changelog
+* Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.2-3
+- Fixed the user creation comment to not include a colon
+    
 * Fri Jan 21 2011  Tavis Aitken <tavisto@tavisto.net> - 0.14.2-2
 - Fixed the logging.yml and logrotate.d configs
 

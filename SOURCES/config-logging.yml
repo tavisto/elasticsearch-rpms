@@ -15,7 +15,7 @@ logger:
 appender:
   file:
     type: file 
-    file: /var/log/elasticsearch.log
+    file: /var/log/elasticsearch/elasticsearch.log
     layout:
       type: pattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"
