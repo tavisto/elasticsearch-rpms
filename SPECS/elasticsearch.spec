@@ -46,6 +46,7 @@ RabbitMQ River allows to automatically index a rabbitmq queue
 
 %package plugin-river-twitter
 Summary:        A river plugin to index from a twitter feed
+Group:          System Environment/Daemons 
 Requires: elasticsearch = %{version}
 
 %description plugin-river-twitter
