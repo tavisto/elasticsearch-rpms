@@ -2,7 +2,7 @@
 
 Name:           elasticsearch
 Version:        0.14.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -30,7 +30,7 @@ A distributed, highly available, RESTful search engine
 
 %package plugin-river-couchdb
 Summary:        A river plugin to index from a couchdb database
-Group:          System Environment/Daemons 
+Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
 
 %description plugin-river-couchdb
@@ -38,7 +38,7 @@ The CouchDB River allows to automatically index couchdb and make it searchable u
 
 %package plugin-river-rabbitmq
 Summary:        A river plugin to index from a rabbitmq queue
-Group:          System Environment/Daemons 
+Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
 
 %description plugin-river-rabbitmq
@@ -46,7 +46,7 @@ RabbitMQ River allows to automatically index a rabbitmq queue
 
 %package plugin-river-twitter
 Summary:        A river plugin to index from a twitter feed
-Group:          System Environment/Daemons 
+Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
 
 %description plugin-river-twitter
@@ -54,7 +54,7 @@ The twitter river indexes the public twitter stream, aka the hose, and makes it 
 
 %package plugin-river-wikipedia
 Summary:        A river plugin to index wikipedia
-Group:          System Environment/Daemons 
+Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
 
 %description plugin-river-wikipedia
@@ -62,10 +62,10 @@ A simple river to index wikipedia
 
 %prep
 %setup -q -n %{name}-%{version}
-unzip %{SOURCE4} 
-unzip %{SOURCE5} 
-unzip %{SOURCE6} 
-unzip %{SOURCE7} 
+unzip %{SOURCE4}
+unzip %{SOURCE5}
+unzip %{SOURCE6}
+unzip %{SOURCE7}
 
 %build
 true
@@ -112,16 +112,19 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lock/subsys/elasticsearch
 
 # plugin-river-couchdb
-%{__install} -m 755 elasticsearch-river-couchdb-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/elasticsearch-river-couchdb.jar
+%{__install} -D -m 755 elasticsearch-river-couchdb-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-couchdb/elasticsearch-river-couchdb.jar
 
 # plugin-river-rabbitmq
-%{__install} -m 755 elasticsearch-river-rabbitmq-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/elasticsearch-river-rabbitmq.jar
+%{__install} -D -m 755 elasticsearch-river-rabbitmq-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq/elasticsearch-river-rabbitmq.jar
+%{__install} -m 755 commons-io-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq
+%{__install} -m 755 amqp-client-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq
 
 # plugin-river-twitter
-%{__install} -m 755 elasticsearch-river-twitter-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/elasticsearch-river-twitter.jar
+%{__install} -D -m 755 elasticsearch-river-twitter-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-twitter/elasticsearch-river-twitter.jar
+%{__install} -m 755 twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter 
 
 # plugin-river-wikipedia
-%{__install} -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/elasticsearch-river-wikipedia.jar
+%{__install} -D -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
 
 %pre
 # create elasticsearch group
@@ -164,27 +167,35 @@ rm -rf $RPM_BUILD_ROOT
 
 %files plugin-river-couchdb
 %defattr(-,root,root,-)
-%{_javadir}/elasticsearch/plugins/elasticsearch-river-couchdb.jar
+%dir %{_javadir}/elasticsearch/plugins/river-couchdb
+%{_javadir}/elasticsearch/plugins/river-couchdb/*
 
 %files plugin-river-rabbitmq
 %defattr(-,root,root,-)
-%{_javadir}/elasticsearch/plugins/elasticsearch-river-rabbitmq.jar
+%dir %{_javadir}/elasticsearch/plugins/river-rabbitmq
+%{_javadir}/elasticsearch/plugins/river-rabbitmq/*
 
 %files plugin-river-twitter
 %defattr(-,root,root,-)
-%{_javadir}/elasticsearch/plugins/elasticsearch-river-twitter.jar
+%dir %{_javadir}/elasticsearch/plugins/river-twitter
+%{_javadir}/elasticsearch/plugins/river-twitter/*
 
 %files plugin-river-wikipedia
 %defattr(-,root,root,-)
-%{_javadir}/elasticsearch/plugins/elasticsearch-river-wikipedia.jar
+%dir %{_javadir}/elasticsearch/plugins/river-wikipedia
+%{_javadir}/elasticsearch/plugins/river-wikipedia/*
+
 
 %changelog
+* Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-2
+- Fixed the paths for the plugin sub-packages
+
 * Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-1
 - Update to upstream version, complete with river plugin sub-packages
 
 * Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.2-3
 - Fixed the user creation comment to not include a colon
-    
+
 * Fri Jan 21 2011  Tavis Aitken <tavisto@tavisto.net> - 0.14.2-2
 - Fixed the logging.yml and logrotate.d configs
 
