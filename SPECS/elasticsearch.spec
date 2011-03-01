@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.14.3
-Release:        2%{?dist}
+Version:        0.14.4
+Release:        0%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -187,6 +187,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Feb 28 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-0
+- New Upstream version 
+
 * Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-2
 - Fixed the paths for the plugin sub-packages
 
