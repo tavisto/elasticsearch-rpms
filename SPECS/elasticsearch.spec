@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.14.4
-Release:        0%{?dist}
+Version:        0.15.2
+Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -105,8 +105,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
 
 # sysconfig and init
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/{init.d,sysconfig}
-%{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/init.d/elasticsearch
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/{rc.d/init.d,sysconfig}
+%{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/elasticsearch
 
 %{__mkdir} -p %{buildroot}%{_localstatedir}/run/elasticsearch
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lock/subsys/elasticsearch
@@ -152,7 +152,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(-,root,root,-)
-%{_sysconfdir}/init.d/elasticsearch
+%{_sysconfdir}/rc.d/init.d/elasticsearch
 %{_sysconfdir}/logrotate.d/elasticsearch
 %dir %{_javadir}/elasticsearch
 %{_javadir}/elasticsearch/bin/*
@@ -187,6 +187,15 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Mar 07 2011 Tavis Aitken tavisto@tavisto.net 0.15.2-1
+- New Upstream version 
+
+* Mon Mar 07 2011 Tavis Aitken tavisto@tavisto.net 0.15.1-1
+- New Upstream version 
+
+* Mon Mar 01 2011 Tavis Aitken tavisto@tavisto.net 0.15.0-1
+- New Upstream version 
+
 * Mon Feb 28 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-0
 - New Upstream version 
 
