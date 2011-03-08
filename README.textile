@@ -1,17 +1,17 @@
-h1. Elasticsearch Rpms
+h1. Elasticsearch RPMs
 
-h2. An easy way to intall elasticsearch on fedora/rhel based systems.
+h2. An easy way to install elasticsearch on fedora/rhel based systems.
 
 These rpms were built to have an easy way to install the elasticsearch
 binary distribution in a systemic way. 
 
 The only reason these packages are not submitted upstream is the
 requirements for packaging Java are fairly complicated and require building
-everything from source and using any other prevously package libraries.
+everything from source and using any other previously packaged libraries.
 There were some glaring omissions from the package tree in order to use this
 one. 
 
-h2. I have not run these packages on a production sytem yet, so use at your
+h2. I have not run these packages on a production system yet, so use at your
 own risk. 
 
 h3. Please file an issue if you try and use these and something doesn't work
