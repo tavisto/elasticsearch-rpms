@@ -15,21 +15,22 @@
 
 ES_HOME=/usr/share/java/elasticsearch
 ES_USER=elasticsearch
-ES_INCLUDE=$ES_HOME/bin/elasticsearch.in.sh
+ES_INCLUDE=${ES_HOME}/bin/elasticsearch.in.sh
 
-DAEMON=$ES_HOME/bin/elasticsearch
+DAEMON=${ES_HOME}/bin/elasticsearch
 NAME=elasticsearch
-PID_FILE=${PIDFILE-/var/run/$NAME/$NAME.pid}
-LOCK_FILE=${LOCKFILE-/var/lock/subsys/$NAME}
-LOG_DIR=/var/log/$NAME
-DATA_DIR=$ES_HOME/data
-WORK_DIR=/tmp/$NAME
-CONFIG_FILE=/etc/$NAME/elasticsearch.yml
-CONFIG_DIR=/etc/$NAME
-DAEMON_OPTS="-p $PID_FILE -Des.path.conf=$CONFIG_DIR -Des.config=$CONFIG_FILE -Des.path.home=$ES_HOME -Des.path.logs=$LOG_DIR -Des.path.data=$DATA_DIR -Des.path.work=$WORK_DIR"
+PID_FILE=${PIDFILE-/var/run/${NAME}/${NAME}.pid}
+LOCK_FILE=${LOCKFILE-/var/lock/subsys/${NAME}}
+
+LOG_DIR=/var/log/${NAME}
+DATA_DIR=${ES_HOME}/data
+WORK_DIR=/tmp/${NAME}
+CONFIG_FILE=/etc/${NAME}/elasticsearch.yml
+CONFIG_DIR=/etc/${NAME}
+DAEMON_OPTS="-p ${PID_FILE} -Des.path.conf=${CONFIG_DIR} -Des.config=${CONFIG_FILE} -Des.path.home=${ES_HOME} -Des.path.logs=${LOG_DIR} -Des.path.data=${DATA_DIR} -Des.path.work=${WORK_DIR}"
 
 start() {
-    echo -n $"Starting $NAME: "
+    echo -n $"Starting ${NAME}: "
     mkdir -p $WORK_DIR
     daemon --pidfile=${PID_FILE} --user $ES_USER $DAEMON $DAEMON_OPTS
     RETVAL=$?
@@ -39,7 +40,7 @@ start() {
 }
 
 stop() {
-    echo -n $"Stopping $NAME: "
+    echo -n $"Stopping ${NAME}: "
     killproc -p ${PID_FILE} -d 10 $DAEMON
     RETVAL=$?
     echo
@@ -63,7 +64,7 @@ case "$1" in
         start
         ;;
     *)
-        N=/etc/init.d/$NAME
+        N=/etc/init.d/${NAME}
         echo "Usage: $N {start|stop|restart|force-reload}" >&2
         RETVAL=2
         ;;
