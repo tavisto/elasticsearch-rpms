@@ -90,7 +90,7 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 # config
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch 
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch
 %{__install} -m 644 config/elasticsearch.yml %{buildroot}%{_sysconfdir}/%{name}
 %{__install} -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/logging.yml
 
@@ -101,7 +101,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
 %{__install} -D -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/elasticsearch
 
-# plugins 
+# plugins
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
 
 # sysconfig and init
@@ -121,7 +121,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # plugin-river-twitter
 %{__install} -D -m 755 elasticsearch-river-twitter-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-twitter/elasticsearch-river-twitter.jar
-%{__install} -m 755 twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter 
+%{__install} -m 755 twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter
 
 # plugin-river-wikipedia
 %{__install} -D -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar

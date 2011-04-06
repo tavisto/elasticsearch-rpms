@@ -3,11 +3,11 @@
 # Provides:          elasticsearch
 # Required-Start:    $all
 # Required-Stop:     $all
-# Default-Start:      
+# Default-Start:
 # Default-Stop:      0 1 6
 # Short-Description: Starts elasticsearch
 # chkconfig: - 80 15
-# Description: Elasticsearch        
+# Description: Elasticsearch
 ### END INIT INFO
 
 # Source function library.
@@ -31,7 +31,7 @@ DAEMON_OPTS="-p $PID_FILE -Des.path.conf=$CONFIG_DIR -Des.config=$CONFIG_FILE -D
 start() {
     echo -n $"Starting $NAME: "
     mkdir -p $WORK_DIR
-    daemon --pidfile=${PID_FILE} --user $ES_USER $DAEMON $DAEMON_OPTS   
+    daemon --pidfile=${PID_FILE} --user $ES_USER $DAEMON $DAEMON_OPTS
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $LOCK_FILE
@@ -39,34 +39,34 @@ start() {
 }
 
 stop() {
-	echo -n $"Stopping $NAME: "
-	killproc -p ${PID_FILE} -d 10 $DAEMON
-	RETVAL=$?
-	echo
-	[ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}
+    echo -n $"Stopping $NAME: "
+    killproc -p ${PID_FILE} -d 10 $DAEMON
+    RETVAL=$?
+    echo
+    [ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}
     return $RETVAL
 }
 
 case "$1" in
-  start)
-    start
-    ;;
-  stop)
-    stop 
-    ;;
-  status)
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    status)
         status -p ${PID_FILE} $DAEMON
-	RETVAL=$?
-    ;;
-  restart|force-reload)
-    stop
-    start
-    ;;
-  *)
-    N=/etc/init.d/$NAME
-    echo "Usage: $N {start|stop|restart|force-reload}" >&2
-    RETVAL=2
-    ;;
+        RETVAL=$?
+        ;;
+    restart|force-reload)
+        stop
+        start
+        ;;
+    *)
+        N=/etc/init.d/$NAME
+        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        RETVAL=2
+        ;;
 esac
 
 exit $RETVAL
