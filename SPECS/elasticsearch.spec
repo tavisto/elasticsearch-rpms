@@ -12,10 +12,11 @@ Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.
 Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml
-Source4:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.zip
-Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
-Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
-Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
+Source4:        sysconfig-elasticsearch
+Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.zip
+Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
+Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
+Source8:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -62,10 +63,10 @@ A simple river to index wikipedia
 
 %prep
 %setup -q -n %{name}-%{version}
-unzip %{SOURCE4}
 unzip %{SOURCE5}
 unzip %{SOURCE6}
 unzip %{SOURCE7}
+unzip %{SOURCE8}
 
 %build
 true
@@ -107,6 +108,7 @@ rm -rf $RPM_BUILD_ROOT
 # sysconfig and init
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/{rc.d/init.d,sysconfig}
 %{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/elasticsearch
+%{__install} -m 755 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/elasticsearch
 
 %{__mkdir} -p %{buildroot}%{_localstatedir}/run/elasticsearch
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lock/subsys/elasticsearch
@@ -153,6 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/rc.d/init.d/elasticsearch
+%config(noreplace) %{_sysconfdir}/sysconfig/elasticsearch
 %{_sysconfdir}/logrotate.d/elasticsearch
 %dir %{_javadir}/elasticsearch
 %{_javadir}/elasticsearch/bin/*
