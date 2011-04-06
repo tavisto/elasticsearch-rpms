@@ -13,6 +13,9 @@
 # Source function library.
 . /etc/rc.d/init.d/functions
 
+# Pull in sysconfig settings
+[ -f /etc/sysconfig/elasticsearch ] && . /etc/sysconfig/elasticsearch
+
 ES_HOME=/usr/share/java/elasticsearch
 ES_USER=elasticsearch
 ES_INCLUDE=${ES_HOME}/bin/elasticsearch.in.sh
@@ -22,11 +25,11 @@ NAME=elasticsearch
 PID_FILE=${PIDFILE-/var/run/${NAME}/${NAME}.pid}
 LOCK_FILE=${LOCKFILE-/var/lock/subsys/${NAME}}
 
-ES_PATH_LOG=/var/log/${NAME}
-ES_PATH_DATA=${ES_HOME}/data
-ES_PATH_WORK=/tmp/${NAME}
-ES_PATH_CONF=/etc/${NAME}
-ES_CONFIG=${ES_PATH_CONF}/elasticsearch.yml
+ES_PATH_LOG=${ES_PATH_LOG-/var/log/${NAME}}
+ES_PATH_DATA=${ES_PATH_DATA-${ES_HOME}/data}
+ES_PATH_WORK=${ES_PATH_WORK-/tmp/${NAME}}
+ES_PATH_CONF=${ES_PATH_CONF-/etc/${NAME}}
+ES_CONFIG=${ES_CONFIG-${ES_PATH_CONF}/elasticsearch.yml}
 
 DAEMON_OPTS="-p ${PID_FILE} \
     -Des.config=${ES_CONFIG} \
