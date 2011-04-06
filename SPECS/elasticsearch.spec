@@ -2,7 +2,7 @@
 
 Name:           elasticsearch
 Version:        0.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -12,10 +12,11 @@ Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.
 Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml
-Source4:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.zip
-Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
-Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
-Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
+Source4:        sysconfig-elasticsearch
+Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.zip
+Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
+Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
+Source8:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -62,10 +63,10 @@ A simple river to index wikipedia
 
 %prep
 %setup -q -n %{name}-%{version}
-unzip %{SOURCE4}
 unzip %{SOURCE5}
 unzip %{SOURCE6}
 unzip %{SOURCE7}
+unzip %{SOURCE8}
 
 %build
 true
@@ -90,23 +91,24 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 # config
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch 
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/elasticsearch
 %{__install} -m 644 config/elasticsearch.yml %{buildroot}%{_sysconfdir}/%{name}
 %{__install} -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/logging.yml
 
 # data
-%{__mkdir} -p %{buildroot}%{_javadir}/%{name}/data
+%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{name}
 
 # logs
 %{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
 %{__install} -D -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/logrotate.d/elasticsearch
 
-# plugins 
+# plugins
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
 
 # sysconfig and init
 %{__mkdir} -p %{buildroot}%{_sysconfdir}/{rc.d/init.d,sysconfig}
 %{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/elasticsearch
+%{__install} -m 755 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/elasticsearch
 
 %{__mkdir} -p %{buildroot}%{_localstatedir}/run/elasticsearch
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lock/subsys/elasticsearch
@@ -121,7 +123,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # plugin-river-twitter
 %{__install} -D -m 755 elasticsearch-river-twitter-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-twitter/elasticsearch-river-twitter.jar
-%{__install} -m 755 twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter 
+%{__install} -m 755 twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter
 
 # plugin-river-wikipedia
 %{__install} -D -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
@@ -153,6 +155,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(-,root,root,-)
 %{_sysconfdir}/rc.d/init.d/elasticsearch
+%config(noreplace) %{_sysconfdir}/sysconfig/elasticsearch
 %{_sysconfdir}/logrotate.d/elasticsearch
 %dir %{_javadir}/elasticsearch
 %{_javadir}/elasticsearch/bin/*
@@ -161,7 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/elasticsearch
 %doc LICENSE.txt  NOTICE.txt  README.textile
 %defattr(-,elasticsearch,elasticsearch,-)
-%dir %{_javadir}/elasticsearch/data
+%dir %{_localstatedir}/lib/elasticsearch
 %{_localstatedir}/run/elasticsearch
 %dir %{_localstatedir}/log/elasticsearch
 
@@ -187,6 +190,11 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Apr 06 2011 Dan Carley <dan.carley@gmail.com> 0.15.2-2
+- Moved data to /var/lib
+- Allow customisation of paths.
+- Allow customisation of memory and include settings.
+
 * Mon Mar 07 2011 Tavis Aitken tavisto@tavisto.net 0.15.2-1
 - New Upstream version 
 
