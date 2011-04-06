@@ -22,16 +22,23 @@ NAME=elasticsearch
 PID_FILE=${PIDFILE-/var/run/${NAME}/${NAME}.pid}
 LOCK_FILE=${LOCKFILE-/var/lock/subsys/${NAME}}
 
-LOG_DIR=/var/log/${NAME}
-DATA_DIR=${ES_HOME}/data
-WORK_DIR=/tmp/${NAME}
-CONFIG_FILE=/etc/${NAME}/elasticsearch.yml
-CONFIG_DIR=/etc/${NAME}
-DAEMON_OPTS="-p ${PID_FILE} -Des.path.conf=${CONFIG_DIR} -Des.config=${CONFIG_FILE} -Des.path.home=${ES_HOME} -Des.path.logs=${LOG_DIR} -Des.path.data=${DATA_DIR} -Des.path.work=${WORK_DIR}"
+ES_PATH_LOG=/var/log/${NAME}
+ES_PATH_DATA=${ES_HOME}/data
+ES_PATH_WORK=/tmp/${NAME}
+ES_PATH_CONF=/etc/${NAME}
+ES_CONFIG=${ES_PATH_CONF}/elasticsearch.yml
+
+DAEMON_OPTS="-p ${PID_FILE} \
+    -Des.config=${ES_CONFIG} \
+    -Des.path.conf=${ES_PATH_CONF} \
+    -Des.path.home=${ES_PATH_HOME} \
+    -Des.path.logs=${ES_PATH_LOG} \
+    -Des.path.data=${ES_PATH_DATA} \
+    -Des.path.work=${ES_PATH_WORK}"
 
 start() {
     echo -n $"Starting ${NAME}: "
-    mkdir -p $WORK_DIR
+    mkdir -p $ES_PATH_WORK
     daemon --pidfile=${PID_FILE} --user $ES_USER $DAEMON $DAEMON_OPTS
     RETVAL=$?
     echo
