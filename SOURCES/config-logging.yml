@@ -14,7 +14,7 @@ logger:
 
 appender:
   file:
-    type: file 
+    type: file
     file: /var/log/elasticsearch/elasticsearch.log
     layout:
       type: pattern

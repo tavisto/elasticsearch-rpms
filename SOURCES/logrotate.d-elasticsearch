@@ -1,6 +1,6 @@
 /var/log/elasticsearch/*.log {
        missingok
-       daily 
+       daily
        notifempty
        nocompress
 }
