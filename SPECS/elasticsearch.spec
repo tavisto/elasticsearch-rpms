@@ -96,7 +96,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/%{name}/logging.yml
 
 # data
-%{__mkdir} -p %{buildroot}%{_javadir}/%{name}/data
+%{__mkdir} -p %{buildroot}%{_localstatedir}/lib/%{name}
 
 # logs
 %{__mkdir} -p %{buildroot}%{_localstatedir}/log/%{name}
@@ -164,7 +164,7 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/elasticsearch
 %doc LICENSE.txt  NOTICE.txt  README.textile
 %defattr(-,elasticsearch,elasticsearch,-)
-%dir %{_javadir}/elasticsearch/data
+%dir %{_localstatedir}/lib/elasticsearch
 %{_localstatedir}/run/elasticsearch
 %dir %{_localstatedir}/log/elasticsearch
 

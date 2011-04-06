@@ -1,5 +1,5 @@
 #ES_PATH_LOG=/var/log/elasticsearch
-#ES_PATH_DATA=/usr/share/java/elasticsearch/data
+#ES_PATH_DATA=/var/lib/elasticsearch
 #ES_PATH_WORK=/tmp/elasticsearch
 #ES_PATH_CONF=/etc/elasticsearch
 #ES_CONFIG=/etc/elasticsearch/elasticsearch.yml
