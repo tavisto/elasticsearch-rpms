@@ -25,7 +25,7 @@ PID_FILE=${PIDFILE-/var/run/${NAME}/${NAME}.pid}
 LOCK_FILE=${LOCKFILE-/var/lock/subsys/${NAME}}
 
 ES_PATH_LOG=${ES_PATH_LOG-/var/log/${NAME}}
-ES_PATH_DATA=${ES_PATH_DATA-${ES_HOME}/data}
+ES_PATH_DATA=${ES_PATH_DATA-/var/lib/${NAME}}
 ES_PATH_WORK=${ES_PATH_WORK-/tmp/${NAME}}
 ES_PATH_CONF=${ES_PATH_CONF-/etc/${NAME}}
 ES_CONFIG=${ES_CONFIG-${ES_PATH_CONF}/elasticsearch.yml}
