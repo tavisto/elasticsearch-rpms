@@ -146,6 +146,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # plugin-lang-javascript-
 %{__install} -D -m 755 elasticsearch-lang-javascript-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
+%{__install} -m 755 js-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript
 
 %pre
 # create elasticsearch group
