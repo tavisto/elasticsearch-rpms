@@ -17,6 +17,7 @@ Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/el
 Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
 Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
 Source8:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
+Source9:        http://elasticsearch.googlecode.com/svn/plugins/lang-javascript/elasticsearch-lang-javascript-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -65,12 +66,22 @@ Requires: elasticsearch = %{version}
 %description plugin-river-wikipedia
 A simple river to index wikipedia
 
+%package plugin-lang-javascript
+BuildArch:      noarch
+Summary:        A lang plugin to add support for JavaScript
+Group:          System Environment/Daemons
+Requires: elasticsearch = %{version}
+
+%description plugin-lang-javascript
+A lang plugin to add support for JavaScript
+
 %prep
 %setup -q -n %{name}-%{version}
 unzip %{SOURCE5}
 unzip %{SOURCE6}
 unzip %{SOURCE7}
 unzip %{SOURCE8}
+unzip %{SOURCE9}
 
 %build
 true
@@ -133,6 +144,9 @@ rm -rf $RPM_BUILD_ROOT
 # plugin-river-wikipedia
 %{__install} -D -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
 
+# plugin-lang-javascript-
+%{__install} -D -m 755 elasticsearch-lang-javascript-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
+
 %pre
 # create elasticsearch group
 if ! getent group elasticsearch >/dev/null; then
@@ -192,6 +206,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %dir %{_javadir}/elasticsearch/plugins/river-wikipedia
 %{_javadir}/elasticsearch/plugins/river-wikipedia/*
+
+%files plugin-lang-javascript
+%defattr(-,root,root,-)
+%dir %{_javadir}/elasticsearch/plugins/lang-javascript
+%{_javadir}/elasticsearch/plugins/lang-javascript/*
 
 
 %changelog
