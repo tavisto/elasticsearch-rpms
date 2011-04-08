@@ -106,7 +106,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
 
 # sysconfig and init
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/{rc.d/init.d,sysconfig}
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/rc.d/init.d
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/sysconfig
 %{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/elasticsearch
 %{__install} -m 755 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/elasticsearch
 
