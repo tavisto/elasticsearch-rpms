@@ -30,6 +30,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %package plugin-river-couchdb
+BuildArch:      noarch
 Summary:        A river plugin to index from a couchdb database
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -38,6 +39,7 @@ Requires: elasticsearch = %{version}
 The CouchDB River allows to automatically index couchdb and make it searchable using the excellent _changes stream couchdb provides
 
 %package plugin-river-rabbitmq
+BuildArch:      noarch
 Summary:        A river plugin to index from a rabbitmq queue
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -46,6 +48,7 @@ Requires: elasticsearch = %{version}
 RabbitMQ River allows to automatically index a rabbitmq queue
 
 %package plugin-river-twitter
+BuildArch:      noarch
 Summary:        A river plugin to index from a twitter feed
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -54,6 +57,7 @@ Requires: elasticsearch = %{version}
 The twitter river indexes the public twitter stream, aka the hose, and makes it searchable
 
 %package plugin-river-wikipedia
+BuildArch:      noarch
 Summary:        A river plugin to index wikipedia
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
