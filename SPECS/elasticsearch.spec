@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.15.2
-Release:        2%{?dist}
+Version:        0.16.0
+Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -190,6 +190,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Apr 28 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-1
+- New upstream version 
+
 * Wed Apr 06 2011 Dan Carley <dan.carley@gmail.com> 0.15.2-2
 - Moved data to /var/lib
 - Allow customisation of paths.
