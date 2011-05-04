@@ -17,6 +17,7 @@ Source5:        http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/el
 Source6:        http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
 Source7:        http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
 Source8:        http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
+Source9:        http://elasticsearch.googlecode.com/svn/plugins/lang-javascript/elasticsearch-lang-javascript-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -30,6 +31,7 @@ Requires(pre):  shadow-utils
 A distributed, highly available, RESTful search engine
 
 %package plugin-river-couchdb
+BuildArch:      noarch
 Summary:        A river plugin to index from a couchdb database
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -38,6 +40,7 @@ Requires: elasticsearch = %{version}
 The CouchDB River allows to automatically index couchdb and make it searchable using the excellent _changes stream couchdb provides
 
 %package plugin-river-rabbitmq
+BuildArch:      noarch
 Summary:        A river plugin to index from a rabbitmq queue
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -46,6 +49,7 @@ Requires: elasticsearch = %{version}
 RabbitMQ River allows to automatically index a rabbitmq queue
 
 %package plugin-river-twitter
+BuildArch:      noarch
 Summary:        A river plugin to index from a twitter feed
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -54,6 +58,7 @@ Requires: elasticsearch = %{version}
 The twitter river indexes the public twitter stream, aka the hose, and makes it searchable
 
 %package plugin-river-wikipedia
+BuildArch:      noarch
 Summary:        A river plugin to index wikipedia
 Group:          System Environment/Daemons
 Requires: elasticsearch = %{version}
@@ -61,12 +66,22 @@ Requires: elasticsearch = %{version}
 %description plugin-river-wikipedia
 A simple river to index wikipedia
 
+%package plugin-lang-javascript
+BuildArch:      noarch
+Summary:        A lang plugin to add support for JavaScript
+Group:          System Environment/Daemons
+Requires: elasticsearch = %{version}
+
+%description plugin-lang-javascript
+A lang plugin to add support for JavaScript
+
 %prep
 %setup -q -n %{name}-%{version}
 unzip %{SOURCE5}
 unzip %{SOURCE6}
 unzip %{SOURCE7}
 unzip %{SOURCE8}
+unzip %{SOURCE9}
 
 %build
 true
@@ -106,7 +121,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_javadir}/%{name}/plugins
 
 # sysconfig and init
-%{__mkdir} -p %{buildroot}%{_sysconfdir}/{rc.d/init.d,sysconfig}
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/rc.d/init.d
+%{__mkdir} -p %{buildroot}%{_sysconfdir}/sysconfig
 %{__install} -m 755 %{SOURCE1} %{buildroot}%{_sysconfdir}/rc.d/init.d/elasticsearch
 %{__install} -m 755 %{SOURCE4} %{buildroot}%{_sysconfdir}/sysconfig/elasticsearch
 
@@ -127,6 +143,10 @@ rm -rf $RPM_BUILD_ROOT
 
 # plugin-river-wikipedia
 %{__install} -D -m 755 elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
+
+# plugin-lang-javascript-
+%{__install} -D -m 755 elasticsearch-lang-javascript-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
+%{__install} -m 755 js-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript
 
 %pre
 # create elasticsearch group
@@ -187,6 +207,11 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root,-)
 %dir %{_javadir}/elasticsearch/plugins/river-wikipedia
 %{_javadir}/elasticsearch/plugins/river-wikipedia/*
+
+%files plugin-lang-javascript
+%defattr(-,root,root,-)
+%dir %{_javadir}/elasticsearch/plugins/lang-javascript
+%{_javadir}/elasticsearch/plugins/lang-javascript/*
 
 
 %changelog
