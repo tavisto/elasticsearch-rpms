@@ -2,7 +2,7 @@
 
 Name:           elasticsearch
 Version:        0.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed May 11 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-2
+- Add lang-javascript plugin subpackage
+
 * Thu Apr 28 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-1
 - New upstream version 
 
