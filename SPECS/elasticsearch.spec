@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.16.0
-Release:        2%{?dist}
+Version:        0.16.2
+Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jun 02 2011 Dan Everton dan.everton@wotifgroup.com 0.16.2-1
+- New Upstream version 
+
 * Wed May 11 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-2
 - Add lang-javascript plugin subpackage
 
