@@ -30,7 +30,7 @@ ES_PATH_WORK=${ES_PATH_WORK-/tmp/${NAME}}
 ES_PATH_CONF=${ES_PATH_CONF-/etc/${NAME}}
 ES_CONFIG=${ES_CONFIG-${ES_PATH_CONF}/elasticsearch.yml}
 
-DAEMON_OPTS="-p ${PID_FILE} \
+DAEMON_OPTS=" \
     -Des.config=${ES_CONFIG} \
     -Des.path.conf=${ES_PATH_CONF} \
     -Des.path.home=${ES_PATH_HOME} \
@@ -43,27 +43,48 @@ ES_MIN_MEM=${ES_MIN_MEM-256m}
 ES_MAX_MEM=${ES_MAX_MEM-1g}
 ES_INCLUDE=${ES_INCLUDE-${ES_HOME}/bin/elasticsearch.in.sh}
 
+# Handle multi node environment:
+if [ -z $ES_NUM_NODES ]; then
+   ES_NUM_NODES=1
+fi
+if [ ! -z $ES_MULTI_CLUSTER ]; then
+   #Count the nodes in the specified data directory
+   ES_NUM_NODES=`ls $ES_PATH_DATA/$ES_MULTI_CLUSTER/nodes/ | wc -l`
+fi
+
 start() {
-    echo -n $"Starting ${NAME}: "
-    mkdir -p $ES_PATH_WORK
-    daemon --pidfile=${PID_FILE} --user $ES_USER \
-        ES_HOME=$ES_HOME \
-        ES_INCLUDE=$ES_INCLUDE \
-        ES_MIN_MEM=$ES_MIN_MEM \
-        ES_MAX_MEM=$ES_MAX_MEM \
-        $DAEMON $DAEMON_OPTS
-    RETVAL=$?
-    echo
+    # Start one instance per node entry
+    for i in `seq 1 $ES_NUM_NODES`; do
+       echo -n $"Starting ${NAME} node $i: "
+       mkdir -p $ES_PATH_WORK
+       daemon --pidfile=${PID_FILE}.$i --user $ES_USER \
+           ES_HOME=$ES_HOME \
+           ES_INCLUDE=$ES_INCLUDE \
+           ES_MIN_MEM=$ES_MIN_MEM \
+           ES_MAX_MEM=$ES_MAX_MEM \
+           $DAEMON -p ${PID_FILE}.$i $DAEMON_OPTS
+       RETVAL=$?
+       echo
+       [ $RETVAL -ne 0 ] && break
+    done
     [ $RETVAL -eq 0 ] && touch $LOCK_FILE
+    [ $RETVAL -ne 0 ] && stop
     return $RETVAL
 }
 
 stop() {
-    echo -n $"Stopping ${NAME}: "
-    killproc -p ${PID_FILE} -d 10 $DAEMON
-    RETVAL=$?
-    echo
-    [ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}
+    # Slight complication: if no cluster specified but looks like one's in
+    # use then see if we can work out what's going on
+    if [ -z $ES_MULTI_CLUSTER ] && [ -f ${PID_FILE}.2 ] && [ $ES_NUM_NODES -eq 1 ]; then
+       ES_NUM_NODES=`ls ${PID_FILE}.* | wc -l`
+    fi
+    for i in `seq 1 $ES_NUM_NODES`; do
+       echo -n $"Stopping ${NAME} node $i: "
+       killproc -p ${PID_FILE}.$i -d 10 $DAEMON
+       RETVAL=$?
+       echo
+       [ $RETVAL = 0 ] && rm -f ${LOCK_FILE} ${PID_FILE}.$i
+    done
     return $RETVAL
 }
 
@@ -75,8 +96,16 @@ case "$1" in
         stop
         ;;
     status)
-        status -p ${PID_FILE} $DAEMON
-        RETVAL=$?
+        # Slight complication: if no cluster specified but looks like one's in
+        # use then see if we can work out what's going on
+    if [ -z $ES_MULTI_CLUSTER ] && [ -f ${PID_FILE}.2 ] && [ $ES_NUM_NODES -eq 1 ]; then
+           ES_NUM_NODES=`ls ${PID_FILE}.* | wc -l`
+        fi
+        for i in `seq 1 $ES_NUM_NODES`; do
+           status -p ${PID_FILE}.$i $DAEMON
+           RETVAL=$?
+           [ $RETVAL -ne 0 ] && break
+        done
         ;;
     restart|force-reload)
         stop
