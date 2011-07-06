@@ -2,7 +2,7 @@
 
 Name:           elasticsearch
 Version:        0.16.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Fri Jun 24 2011 Dan Everton dan.everton@wotifgroup.com 0.16.2-2
+- Set plugins path so they are automatically detected by ES.
+
 * Thu Jun 02 2011 Dan Everton dan.everton@wotifgroup.com 0.16.2-1
 - New Upstream version 
 

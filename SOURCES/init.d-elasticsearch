@@ -28,6 +28,7 @@ ES_PATH_LOG=${ES_PATH_LOG-/var/log/${NAME}}
 ES_PATH_DATA=${ES_PATH_DATA-/var/lib/${NAME}}
 ES_PATH_WORK=${ES_PATH_WORK-/tmp/${NAME}}
 ES_PATH_CONF=${ES_PATH_CONF-/etc/${NAME}}
+ES_PATH_PLUGINS=${ES_PATH_PLUGINS-${ES_HOME}/plugins}
 ES_CONFIG=${ES_CONFIG-${ES_PATH_CONF}/elasticsearch.yml}
 
 DAEMON_OPTS="-p ${PID_FILE} \
@@ -36,7 +37,8 @@ DAEMON_OPTS="-p ${PID_FILE} \
     -Des.path.home=${ES_PATH_HOME} \
     -Des.path.logs=${ES_PATH_LOG} \
     -Des.path.data=${ES_PATH_DATA} \
-    -Des.path.work=${ES_PATH_WORK}"
+    -Des.path.work=${ES_PATH_WORK} \
+    -Des.path.plugins=${ES_PATH_PLUGINS}"
 
 # These environment variables are passed over.
 ES_MIN_MEM=${ES_MIN_MEM-256m}
