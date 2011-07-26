@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.16.4
+Version:        0.17.1
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -240,7 +240,6 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -D -m 755 plugins/cloud-aws/elasticsearch-cloud-aws-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws/elasticsearch-cloud-aws.jar
 %{__install} -m 755 plugins/cloud-aws/aws-java-sdk-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-codec-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
-%{__install} -m 755 plugins/cloud-aws/commons-httpclient-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-logging-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 
 # plugin-hadoop
@@ -403,6 +402,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jul 25 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.17.1-1
+- New Upstream version 
+
 * Thu Jul 14 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.16.4-1
 - New Upstream version 
 - Add analysis-icu, cloud-aws, hadoop, lang-groovy, lang-python,
