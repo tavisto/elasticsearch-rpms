@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.17.1
+Version:        0.17.4
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -402,6 +402,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Aug 11 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.17.4-1
+- New Upstream version 
+
 * Mon Jul 25 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.17.1-1
 - New Upstream version 
 
