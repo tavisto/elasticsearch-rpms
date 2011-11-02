@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.17.8
+Version:        0.18.2
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -253,7 +253,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # plugin-lang-javascript
 %{__install} -D -m 755 plugins/lang-javascript/elasticsearch-lang-javascript-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
-%{__install} -m 755 plugins/lang-javascript/js-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript
+%{__install} -m 755 plugins/lang-javascript/elasticsearch-lang-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript
 
 # plugin-lang-python
 %{__install} -D -m 755 plugins/lang-python/elasticsearch-lang-python-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-python/elasticsearch-lang-python.jar
@@ -402,6 +402,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Nov 01 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.18.2-1
+- New Upstream version 
+
 * Tue Oct 11 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.17.8-1
 - New Upstream version 
 
