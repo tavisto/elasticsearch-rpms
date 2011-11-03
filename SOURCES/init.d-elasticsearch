@@ -21,15 +21,16 @@ ES_USER=elasticsearch
 
 DAEMON=${ES_HOME}/bin/elasticsearch
 NAME=elasticsearch
-PID_FILE=${PIDFILE-/var/run/${NAME}/${NAME}.pid}
-LOCK_FILE=${LOCKFILE-/var/lock/subsys/${NAME}}
+PID_FILE=${PIDFILE:-/var/run/${NAME}/${NAME}.pid}
+LOCK_FILE=${LOCKFILE:-/var/lock/subsys/${NAME}}
+NFILES=${NFILES:-32768}
 
-ES_PATH_LOG=${ES_PATH_LOG-/var/log/${NAME}}
-ES_PATH_DATA=${ES_PATH_DATA-/var/lib/${NAME}}
-ES_PATH_WORK=${ES_PATH_WORK-/tmp/${NAME}}
-ES_PATH_CONF=${ES_PATH_CONF-/etc/${NAME}}
-ES_PATH_PLUGINS=${ES_PATH_PLUGINS-${ES_HOME}/plugins}
-ES_CONFIG=${ES_CONFIG-${ES_PATH_CONF}/elasticsearch.yml}
+ES_PATH_LOG=${ES_PATH_LOG:-/var/log/${NAME}}
+ES_PATH_DATA=${ES_PATH_DATA:-/var/lib/${NAME}}
+ES_PATH_WORK=${ES_PATH_WORK:-/tmp/${NAME}}
+ES_PATH_CONF=${ES_PATH_CONF:-/etc/${NAME}}
+ES_PATH_PLUGINS=${ES_PATH_PLUGINS:-${ES_HOME}/plugins}
+ES_CONFIG=${ES_CONFIG:-${ES_PATH_CONF}/elasticsearch.yml}
 
 DAEMON_OPTS="-p ${PID_FILE} \
     -Des.config=${ES_CONFIG} \
@@ -41,13 +42,14 @@ DAEMON_OPTS="-p ${PID_FILE} \
     -Des.path.plugins=${ES_PATH_PLUGINS}"
 
 # These environment variables are passed over.
-ES_MIN_MEM=${ES_MIN_MEM-256m}
-ES_MAX_MEM=${ES_MAX_MEM-1g}
-ES_INCLUDE=${ES_INCLUDE-${ES_HOME}/bin/elasticsearch.in.sh}
+ES_MIN_MEM=${ES_MIN_MEM:-256m}
+ES_MAX_MEM=${ES_MAX_MEM:-1g}
+ES_INCLUDE=${ES_INCLUDE:-${ES_HOME}/bin/elasticsearch.in.sh}
 
 start() {
     echo -n $"Starting ${NAME}: "
     mkdir -p $ES_PATH_WORK
+    ulimit -n $NFILES
     daemon --pidfile=${PID_FILE} --user $ES_USER \
         ES_HOME=$ES_HOME \
         ES_INCLUDE=$ES_INCLUDE \
