@@ -12,10 +12,13 @@ logger:
   # peer shard recovery
   #index.shard.recovery: DEBUG
 
+  # discovery
+  #discovery: TRACE
+
 appender:
   file:
     type: file
-    file: /var/log/elasticsearch/elasticsearch.log
+    file: ${path.logs}/${cluster.name}.log
     layout:
       type: pattern
       conversionPattern: "[%d{ISO8601}][%-5p][%-25c] %m%n"

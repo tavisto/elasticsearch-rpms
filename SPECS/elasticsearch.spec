@@ -1,8 +1,8 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.18.2
-Release:        2%{?dist}
+Version:        0.18.4
+Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -402,6 +402,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Nov 26 2011 Tavis Aitken <tavisto@tavisto.net> - 0.18.4-1
+- New upstream version
+
 * Mon Oct 31 2011 Dan Carley <dan.carley@gmail.com> - 0.18.2-2
 - Raise open files limit.
 
