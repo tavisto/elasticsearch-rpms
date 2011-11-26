@@ -12,10 +12,6 @@ logger:
 
   # peer shard recovery
   #index.shard.recovery: DEBUG
- 
-
-  # discovery
-  #discovery: TRACE
 
   # discovery
   #discovery: TRACE
