@@ -17,20 +17,41 @@ own risk.
 h3. Please file an issue if you try and use these and something doesn't work
 as you expect. 
 
-h2. This is not a repository you can just install from, none of these
-packages have been signed by any gpg keys of any kind. Hopefully soon there
-will be a home for them. 
+h2. This is not a repository you can just install from. I no longer include
+the rpms in this repo itself. You will have to use the spec file and sources
+to build the rpm yourself.
+
+To build the rpm for your system of choice:
+
+* Check out this repo
+* Create your rpmbuild directory 
+<pre>rpmdev-setuptree</pre>
+* Sym link all the sources and spec files into your build tree
+<pre>
+ cd rpmbuild
+ ln -s ${repo}/SPECS/elasticsearch.spec SPECS/elasticsearch.spec 
+ ls -n ${repo}/SOURCES/* SOURCES/ 
+</pre>
+* Download all the source files
+<pre>spectool -g SPECS/elasticsearch.spec </pre>
+* Build the src rpm
+<pre>rpmbiuld -bs --nodeps SPECS/elasticsearch.spec </pre>
+** If you are building for an older system such as el5 you will need to use the old method of hashing
+<pre>rpmbuild-md5 -bs --nodeps SPECS/elasticsearch.spec </pre>
+* Build the final rpms with mock (Substitute fedora-16 with whatever your target is.)
+<pre> mock -r fedora-16-x86_64 --resultdir ./RPMS/ SRPMS/elasticsearch-0.18.4-1.fc16.src.rpm </pre>
+* Install into your repo!
 
 To install on a fedora or rhel system: 
-* Download the rpm that matches your system ( fc14 for Fedora 14, epel-5 for
-CentOS 5 etc.. )
 * install with yum
-<pre>yum install -nogpgcheck ${rpm} </pre>
+<pre>yum install elasticsearch </pre>
+* install any plugins you wish 
+<pre>yum install elasticsearch-plugin-{plugin-name} </pre>
 * Change any configs you need to
 * Start up the node 
 <pre>/etc/init.d/elasticsearch start</pre>
 * If you want it to start after restart 
 <pre>chkconfig elasticsearch on</pre>
 * Watch the log files
-<pre>tail -F /var/log/elasticsearch/elasticsearch.log</pre>
+<pre>tail -F /var/log/${path.logs}/${cluster.name}.log</pre>
 * Search!
