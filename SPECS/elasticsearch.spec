@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.18.5
+Version:        0.18.6
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -402,6 +402,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Dec 28 2011 Tavis Aitken <tavisto@tavisto.net> - 0.18.6-1
+- New upstream version
+
 * Thu Dec 01 2011 Tavis Aitken <tavisto@tavisto.net> - 0.18.5-1
 - New upstream version
 
