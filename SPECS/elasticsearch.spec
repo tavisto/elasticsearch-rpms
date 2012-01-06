@@ -241,6 +241,8 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -m 755 plugins/cloud-aws/aws-java-sdk-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-codec-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-logging-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
+%{__install} -m 755 plugins/cloud-aws/httpclient-*.jar -t %{buildroot}/%{_javadir}/%{name}/plugins/cloud-aws
+%{__install} -m 755 plugins/cloud-aws/httpcore-*.jar -t %{buildroot}/%{_javadir}/%{name}/plugins/cloud-aws
 
 # plugin-hadoop
 %{__install} -D -m 755 plugins/hadoop/elasticsearch-hadoop-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/hadoop/elasticsearch-hadoop.jar
@@ -418,10 +420,10 @@ rm -rf $RPM_BUILD_ROOT
 - New upstream version.
 
 * Mon Jul 25 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.17.1-1
-- New Upstream version 
+- New Upstream version
 
 * Thu Jul 14 2011 Erick Tryzelaar erick.tryzelaar@gmail.com 0.16.4-1
-- New Upstream version 
+- New Upstream version
 - Add analysis-icu, cloud-aws, hadoop, lang-groovy, lang-python,
   mapper-attachments, transport-memcached, transport-thrift, and
   transports-wares plugin subpackages
@@ -430,13 +432,13 @@ rm -rf $RPM_BUILD_ROOT
 - Set plugins path so they are automatically detected by ES.
 
 * Thu Jun 02 2011 Dan Everton dan.everton@wotifgroup.com 0.16.2-1
-- New Upstream version 
+- New Upstream version
 
 * Wed May 11 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-2
 - Add lang-javascript plugin subpackage
 
 * Thu Apr 28 2011 Tavis Aitken tavisto@tavisto.net 0.16.0-1
-- New upstream version 
+- New upstream version
 
 * Wed Apr 06 2011 Dan Carley <dan.carley@gmail.com> 0.15.2-2
 - Moved data to /var/lib
@@ -444,16 +446,16 @@ rm -rf $RPM_BUILD_ROOT
 - Allow customisation of memory and include settings.
 
 * Mon Mar 07 2011 Tavis Aitken tavisto@tavisto.net 0.15.2-1
-- New Upstream version 
+- New Upstream version
 
 * Mon Mar 07 2011 Tavis Aitken tavisto@tavisto.net 0.15.1-1
-- New Upstream version 
+- New Upstream version
 
 * Mon Mar 01 2011 Tavis Aitken tavisto@tavisto.net 0.15.0-1
-- New Upstream version 
+- New Upstream version
 
 * Mon Feb 28 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-0
-- New Upstream version 
+- New Upstream version
 
 * Sat Jan 29 2011 Tavis Aitken tavisto@tavisto.net 0.14.3-2
 - Fixed the paths for the plugin sub-packages
