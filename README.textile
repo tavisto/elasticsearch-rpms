@@ -30,7 +30,7 @@ To build the rpm for your system of choice:
 <pre>
  cd rpmbuild
  ln -s ${repo}/SPECS/elasticsearch.spec SPECS/elasticsearch.spec 
- ls -n ${repo}/SOURCES/* SOURCES/ 
+ ln -s ${repo}/SOURCES/* SOURCES/ 
 </pre>
 * Download all the source files
 <pre>spectool -g SPECS/elasticsearch.spec </pre>
