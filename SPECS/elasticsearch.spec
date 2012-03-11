@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 
 Name:           elasticsearch
-Version:        0.18.7
+Version:        0.19.0.RC3
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -13,20 +13,20 @@ Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml
 Source4:        sysconfig-elasticsearch
-Source5:        http://elasticsearch.googlecode.com/svn/plugins/analysis-icu/elasticsearch-analysis-icu-%{version}.zip
-Source6:        http://elasticsearch.googlecode.com/svn/plugins/cloud-aws/elasticsearch-cloud-aws-%{version}.zip
-Source7:        http://elasticsearch.googlecode.com/svn/plugins/hadoop/elasticsearch-hadoop-%{version}.zip
-Source8:        http://elasticsearch.googlecode.com/svn/plugins/lang-groovy/elasticsearch-lang-groovy-%{version}.zip
-Source9:        http://elasticsearch.googlecode.com/svn/plugins/lang-javascript/elasticsearch-lang-javascript-%{version}.zip
-Source10:       http://elasticsearch.googlecode.com/svn/plugins/lang-python/elasticsearch-lang-python-%{version}.zip
-Source11:       http://elasticsearch.googlecode.com/svn/plugins/mapper-attachments/elasticsearch-mapper-attachments-%{version}.zip
-Source12:       http://elasticsearch.googlecode.com/svn/plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.zip
-Source13:       http://elasticsearch.googlecode.com/svn/plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.zip
-Source14:       http://elasticsearch.googlecode.com/svn/plugins/river-twitter/elasticsearch-river-twitter-%{version}.zip
-Source15:       http://elasticsearch.googlecode.com/svn/plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.zip
-Source16:       http://elasticsearch.googlecode.com/svn/plugins/transport-memcached/elasticsearch-transport-memcached-%{version}.zip
-Source17:       http://elasticsearch.googlecode.com/svn/plugins/transport-thrift/elasticsearch-transport-thrift-%{version}.zip
-Source18:       http://elasticsearch.googlecode.com/svn/plugins/transport-wares/elasticsearch-transport-wares-%{version}.zip
+Source5:        https://github.com/downloads/elasticsearch/elasticsearch-analysis-icu/elasticsearch-analysis-icu-1.2.0.zip
+Source6:        https://github.com/downloads/elasticsearch/elasticsearch-cloud-aws/elasticsearch-cloud-aws-1.3.0.zip
+Source7:        https://github.com/downloads/elasticsearch/elasticsearch-hadoop/elasticsearch-hadoop-1.1.0.zip
+Source8:        https://github.com/downloads/elasticsearch/elasticsearch-lang-groovy/elasticsearch-lang-groovy-1.1.0.zip
+Source9:        https://github.com/downloads/elasticsearch/elasticsearch-lang-javascript/elasticsearch-lang-javascript-1.1.0.zip
+Source10:       https://github.com/downloads/elasticsearch/elasticsearch-lang-python/elasticsearch-lang-python-1.1.0.zip
+Source11:       https://github.com/downloads/elasticsearch/elasticsearch-mapper-attachments/elasticsearch-mapper-attachments-1.2.0.zip
+Source12:       https://github.com/downloads/elasticsearch/elasticsearch-river-couchdb/elasticsearch-river-couchdb-1.1.0.zip
+Source13:       https://github.com/downloads/elasticsearch/elasticsearch-river-rabbitmq/elasticsearch-river-rabbitmq-1.1.0.zip
+Source14:       https://github.com/downloads/elasticsearch/elasticsearch-river-twitter/elasticsearch-river-twitter-1.1.0.zip
+Source15:       https://github.com/downloads/elasticsearch/elasticsearch-river-wikipedia/elasticsearch-river-wikipedia-1.1.0.zip
+Source16:       https://github.com/downloads/elasticsearch/elasticsearch-transport-memcached/elasticsearch-transport-memcached-1.1.0.zip
+Source17:       https://github.com/downloads/elasticsearch/elasticsearch-transport-thrift/elasticsearch-transport-thrift-1.1.0.zip
+# Source18:       https://github.com/elasticsearch/elasticsearch-transport-wares/zipball/a73ed28f3ebc07855a02c8715c465aafadb60194
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
@@ -156,14 +156,14 @@ Requires: elasticsearch = %{version}
 %description plugin-transport-thrift
 Exports elasticsearch APIs over thrift
 
-%package plugin-transport-wares
-BuildArch:      noarch
-Summary:        Servlet that can be used to dispatch requests to elasticsearch
-Group:          System Environment/Daemons
-Requires: elasticsearch = %{version}
+# %package plugin-transport-wares
+# BuildArch:      noarch
+# Summary:        Servlet that can be used to dispatch requests to elasticsearch
+# Group:          System Environment/Daemons
+# Requires: elasticsearch = %{version}
 
-%description plugin-transport-wares
-Servlet that can be used to dispatch requests to elasticsearch
+# %description plugin-transport-wares
+# Servlet that can be used to dispatch requests to elasticsearch
 
 
 
@@ -183,7 +183,7 @@ unzip %{SOURCE14} -d plugins/river-twitter
 unzip %{SOURCE15} -d plugins/river-wikipedia
 unzip %{SOURCE16} -d plugins/transport-memcached
 unzip %{SOURCE17} -d plugins/transport-thrift
-unzip %{SOURCE18} -d plugins/transport-wares
+# unzip %{SOURCE18} -d plugins/transport-wares
 
 %build
 true
@@ -232,12 +232,12 @@ rm -rf $RPM_BUILD_ROOT
 %{__mkdir} -p %{buildroot}%{_localstatedir}/lock/subsys/elasticsearch
 
 # plugin-analysis-icu
-%{__install} -D -m 755 plugins/analysis-icu/elasticsearch-analysis-icu-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/analysis-icu/elasticsearch-analysis-icu.jar
+%{__install} -D -m 755 plugins/analysis-icu/elasticsearch-analysis-icu-*.jar %{buildroot}%{_javadir}/%{name}/plugins/analysis-icu/elasticsearch-analysis-icu.jar
 %{__install} -m 755 plugins/analysis-icu/lucene-icu-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/analysis-icu
-%{__install} -m 755 plugins/analysis-icu/lucene-icu4j-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/analysis-icu
+%{__install} -m 755 plugins/analysis-icu/icu4j-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/analysis-icu
 
 # plugin-cloud-aws
-%{__install} -D -m 755 plugins/cloud-aws/elasticsearch-cloud-aws-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws/elasticsearch-cloud-aws.jar
+%{__install} -D -m 755 plugins/cloud-aws/elasticsearch-cloud-aws-*.jar %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws/elasticsearch-cloud-aws.jar
 %{__install} -m 755 plugins/cloud-aws/aws-java-sdk-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-codec-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
 %{__install} -m 755 plugins/cloud-aws/commons-logging-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/cloud-aws
@@ -245,52 +245,66 @@ rm -rf $RPM_BUILD_ROOT
 %{__install} -m 755 plugins/cloud-aws/httpcore-*.jar -t %{buildroot}/%{_javadir}/%{name}/plugins/cloud-aws
 
 # plugin-hadoop
-%{__install} -D -m 755 plugins/hadoop/elasticsearch-hadoop-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/hadoop/elasticsearch-hadoop.jar
-%{__install} -m 755 plugins/hadoop/commons-logging-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -D -m 755 plugins/hadoop/elasticsearch-hadoop-*.jar %{buildroot}%{_javadir}/%{name}/plugins/hadoop/elasticsearch-hadoop.jar
 %{__install} -m 755 plugins/hadoop/hadoop-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-cli-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/xmlenc-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-codec-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-math-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-configuration-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-collections-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-lang-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-digester-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-beanutils-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-beanutils-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-net-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
+%{__install} -m 755 plugins/hadoop/commons-el-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/hadoop
 
 # plugin-lang-groovy
-%{__install} -D -m 755 plugins/lang-groovy/elasticsearch-lang-groovy-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-groovy/elasticsearch-lang-groovy.jar
+%{__install} -D -m 755 plugins/lang-groovy/elasticsearch-lang-groovy-*.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-groovy/elasticsearch-lang-groovy.jar
 %{__install} -m 755 plugins/lang-groovy/groovy-all-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-groovy
 
 # plugin-lang-javascript
-%{__install} -D -m 755 plugins/lang-javascript/elasticsearch-lang-javascript-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
+%{__install} -D -m 755 plugins/lang-javascript/elasticsearch-lang-javascript-*.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript/elasticsearch-lang-javascript.jar
 %{__install} -m 755 plugins/lang-javascript/rhino-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-javascript
 
 # plugin-lang-python
-%{__install} -D -m 755 plugins/lang-python/elasticsearch-lang-python-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-python/elasticsearch-lang-python.jar
+%{__install} -D -m 755 plugins/lang-python/elasticsearch-lang-python-*.jar %{buildroot}%{_javadir}/%{name}/plugins/lang-python/elasticsearch-lang-python.jar
 %{__install} -m 755 plugins/lang-python/jython-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/lang-python
 
 # plugin-mapper-attachments
-%{__install} -D -m 755 plugins/mapper-attachments/elasticsearch-mapper-attachments-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/mapper-attachments/elasticsearch-mapper-attachments.jar
+%{__install} -D -m 755 plugins/mapper-attachments/elasticsearch-mapper-attachments-*.jar %{buildroot}%{_javadir}/%{name}/plugins/mapper-attachments/elasticsearch-mapper-attachments.jar
 %{__install} -m 755 plugins/mapper-attachments/tika-app-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/mapper-attachments
 
 # plugin-river-couchdb
-%{__install} -D -m 755 plugins/river-couchdb/elasticsearch-river-couchdb-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-couchdb/elasticsearch-river-couchdb.jar
+%{__install} -D -m 755 plugins/river-couchdb/elasticsearch-river-couchdb-*.jar %{buildroot}%{_javadir}/%{name}/plugins/river-couchdb/elasticsearch-river-couchdb.jar
 
 # plugin-river-rabbitmq
-%{__install} -D -m 755 plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq/elasticsearch-river-rabbitmq.jar
+%{__install} -D -m 755 plugins/river-rabbitmq/elasticsearch-river-rabbitmq-*.jar %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq/elasticsearch-river-rabbitmq.jar
 %{__install} -m 755 plugins/river-rabbitmq/commons-io-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq
+%{__install} -m 755 plugins/river-rabbitmq/commons-cli-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq
 %{__install} -m 755 plugins/river-rabbitmq/amqp-client-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-rabbitmq
 
 # plugin-river-twitter
-%{__install} -D -m 755 plugins/river-twitter/elasticsearch-river-twitter-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-twitter/elasticsearch-river-twitter.jar
+%{__install} -D -m 755 plugins/river-twitter/elasticsearch-river-twitter-*.jar %{buildroot}%{_javadir}/%{name}/plugins/river-twitter/elasticsearch-river-twitter.jar
 %{__install} -m 755 plugins/river-twitter/twitter4j-core-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter
+%{__install} -m 755 plugins/river-twitter/twitter4j-stream-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/river-twitter
 
 # plugin-river-wikipedia
-%{__install} -D -m 755 plugins/river-wikipedia/elasticsearch-river-wikipedia-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
+%{__install} -D -m 755 plugins/river-wikipedia/elasticsearch-river-wikipedia-*.jar %{buildroot}%{_javadir}/%{name}/plugins/river-wikipedia/elasticsearch-river-wikipedia.jar
 
 # plugin-transport-memcached
-%{__install} -D -m 755 plugins/transport-memcached/elasticsearch-transport-memcached-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-memcached/elasticsearch-transport-memcached.jar
+%{__install} -D -m 755 plugins/transport-memcached/elasticsearch-transport-memcached-*.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-memcached/elasticsearch-transport-memcached.jar
 
 # plugin-transport-thrift
-%{__install} -D -m 755 plugins/transport-thrift/elasticsearch-transport-thrift-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift/elasticsearch-transport-thrift.jar
-%{__install} -m 755 plugins/transport-thrift/es-libthrift-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift
+%{__install} -D -m 755 plugins/transport-thrift/elasticsearch-transport-thrift-*.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift/elasticsearch-transport-thrift.jar
+%{__install} -m 755 plugins/transport-thrift/libthrift-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift
 %{__install} -m 755 plugins/transport-thrift/slf4j-api-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift
 %{__install} -m 755 plugins/transport-thrift/slf4j-log4j12-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift
+%{__install} -m 755 plugins/transport-thrift/commons-lang-*.jar -t %{buildroot}%{_javadir}/%{name}/plugins/transport-thrift
 
 # plugin-transport-wares
-%{__install} -D -m 755 plugins/transport-wares/elasticsearch-transport-wares-%{version}.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-wares/elasticsearch-transport-wares.jar
+# %{__install} -D -m 755 plugins/transport-wares/elasticsearch-transport-wares-*.jar %{buildroot}%{_javadir}/%{name}/plugins/transport-wares/elasticsearch-transport-wares.jar
 
 %pre
 # create elasticsearch group
@@ -397,13 +411,16 @@ rm -rf $RPM_BUILD_ROOT
 %dir %{_javadir}/elasticsearch/plugins/transport-thrift
 %{_javadir}/elasticsearch/plugins/transport-thrift/*
 
-%files plugin-transport-wares
-%defattr(-,root,root,-)
-%dir %{_javadir}/elasticsearch/plugins/transport-wares
-%{_javadir}/elasticsearch/plugins/transport-wares/*
+# %files plugin-transport-wares
+# %defattr(-,root,root,-)
+# %dir %{_javadir}/elasticsearch/plugins/transport-wares
+# %{_javadir}/elasticsearch/plugins/transport-wares/*
 
 
 %changelog
+* Tue Feb 28 2012 Andrew Pendleton <apendleton@sunlightfoundation.com> - 0.19.0.RC3-1
+- New upstream version
+
 * Tue Jan 10 2012 Tavis Aitken <tavisto@tavisto.net> - 0.18.7-1
 - New Upstream version
 
