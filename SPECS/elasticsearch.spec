@@ -1,4 +1,5 @@
 %define debug_package %{nil}
+%define base_install_dir %{_javadir}{%name}
 
 Name:           elasticsearch
 Version:        0.19.0
