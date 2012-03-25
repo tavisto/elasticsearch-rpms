@@ -1,5 +1,5 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/%{name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
