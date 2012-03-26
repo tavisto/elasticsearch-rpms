@@ -2,7 +2,7 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           elasticsearch
-Version:        0.19.0
+Version:        0.19.1
 Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 

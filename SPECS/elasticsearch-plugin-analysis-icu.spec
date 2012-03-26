@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-analysis-icu
-Version:        1.2.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin for Lucene ICU
 
