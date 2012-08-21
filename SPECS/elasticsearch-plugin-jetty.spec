@@ -51,6 +51,6 @@ cd %{name}-%{version}
 %config(noreplace) %{_sysconfdir}/elasticsearch/plugins/jetty/jetty.xml
 
 %changelog
-* Tue Aug 21 2012 manuel.vacelet@enalean.com 0.19.8-1
+* Tue Aug 21 2012 Manuel Vacelet <manuel.vacelet@enalean.com> - 0.19.8-1
 - Initial package
 
