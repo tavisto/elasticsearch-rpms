@@ -11,7 +11,7 @@ everything from source and using any other previously packaged libraries.
 There were some glaring omissions from the package tree in order to use this
 one. 
 
-h2. I have not run these packages on a production system yet, so use at your
+h2. These pacakges are not tested by anyone but me. There are many people using them, but use at your
 own risk. 
 
 h3. Please file an issue if you try and use these and something doesn't work
@@ -39,7 +39,7 @@ To build the rpm for your system of choice:
 ** If you are building for an older system such as el5 you will need to use the old method of hashing
 <pre>rpmbuild-md5 -bs --nodeps SPECS/elasticsearch.spec </pre>
 * Build the final rpms with mock (Substitute fedora-16 with whatever your target is.)
-<pre> mock -r fedora-16-x86_64 --resultdir ./RPMS/ SRPMS/elasticsearch-0.18.4-1.fc16.src.rpm </pre>
+<pre> mock -r fedora-16-x86_64 --resultdir ./RPMS/ SRPMS/elasticsearch-0.19.11-1.fc16.src.rpm </pre>
 * Install into your repo!
 
 To install on a fedora or rhel system: 
