@@ -1,11 +1,11 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/%{name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-river-rabbitmq
-Version:        1.1.0
+Version:        1.4.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to hook into RabbitMQ
 
@@ -38,9 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/elasticsearch-river-rabbitmq.jar
-%{__install} -D -m 755 plugins/river-rabbitmq/amqp-client-2.7.0.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
-%{__install} -D -m 755 plugins/river-rabbitmq/commons-cli-1.1.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
-%{__install} -D -m 755 plugins/river-rabbitmq/commons-io-1.2.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
+%{__install} -D -m 755 plugins/river-rabbitmq/amqp-client-2.8.4.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
 
 %files
 %defattr(-,root,root,-)
@@ -48,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/river-rabbitmq/*
 
 %changelog
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.4.0-1
+- New upstream version
+
 * Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-1
 - Tweaked to make the package conform to fedora build specs
 
