@@ -1,11 +1,11 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/{%name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-transport-memcached
-Version:        1.1.0
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to use the REST interface over memcached
 
@@ -17,7 +17,7 @@ Source0:        https://github.com/downloads/elasticsearch/elasticsearch-transpo
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.19.9
 
 %description
 The memcached transport plugin allows to use
@@ -45,6 +45,10 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/transport-memcached/*
 
 %changelog
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.2.0-1
+- New upstream version
+- Fixed base_install_dir
+
 * Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-1
 - Tweaked to make the package conform to fedora build specs
 
