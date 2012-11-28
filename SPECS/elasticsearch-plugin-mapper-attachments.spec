@@ -1,11 +1,11 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/%{name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-mapper-attachments
-Version:        1.3.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to add attachment type
 
@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/mapper-attachments/elasticsearch-mapper-attachments-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/mapper-attachments/elasticsearch-mapper-attachments.jar
-%{__install} -D -m 755 plugins/mapper-attachments/tika-app-1.0.jar -t %{buildroot}/%{base_install_dir}/plugins/mapper-attachments/
+%{__install} -D -m 755 plugins/mapper-attachments/*.jar -t %{buildroot}/%{base_install_dir}/plugins/mapper-attachments/
 
 %files
 %defattr(-,root,root,-)
@@ -46,6 +46,10 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/mapper-attachments/*
 
 %changelog
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.6.0-1
+- New upstream version
+- Fixed base_install_dir
+
 * Wed Mar 21 2012 tavisto@tavisto.net 1.3.0-1
 - New upstream version
 
