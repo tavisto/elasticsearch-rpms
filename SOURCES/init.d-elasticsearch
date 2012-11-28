@@ -88,7 +88,7 @@ case "$1" in
         ;;
     *)
         N=/etc/init.d/${NAME}
-        echo "Usage: $N {start|stop|restart|force-reload}" >&2
+        echo "Usage: $N {start|stop|status|restart|force-reload}" >&2
         RETVAL=2
         ;;
 esac
