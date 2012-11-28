@@ -1,11 +1,11 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/{%name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-analysis-icu
-Version:        1.4.0
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin for Lucene ICU
 
@@ -47,6 +47,10 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/analysis-icu/*
 
 %changelog
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.7.0-1
+- New upstream version
+- Fixed base_install_dir 
+
 * Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.2.0-1
 - Tweaked to make the package conform to fedora build specs
 
