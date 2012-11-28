@@ -1,12 +1,12 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/%{name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-lang-groovy
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ElasticSearch plugin to use Groovy for script execution
 
 Group:          System Environment/Daemons
@@ -46,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/lang-groovy/*
 
 %changelog
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-2
+- Fixed base_install_dir
+
 * Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-1
 - Tweaked to make the package conform to fedora build specs
 

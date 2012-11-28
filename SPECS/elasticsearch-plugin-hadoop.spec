@@ -1,12 +1,12 @@
 %define debug_package %{nil}
-%define base_install_dir %{_javadir}/%{name}
+%define base_install_dir %{_javadir}/elasticsearch
 
 # Avoid running brp-java-repack-jars
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-hadoop
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ElasticSearch plugin to use Hadoop
 
 Group:          System Environment/Daemons
@@ -58,7 +58,10 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/hadoop/*
 
 %changelog
-* Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.3.0-1
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.2.0-2
+- Fixed base_install_dir
+
+* Wed Mar 21 2012 Tavis Aitken tavisto@tavisto.net 1.2.0-1
 - Tweaked to make the package conform to fedora build specs
 
 * Tue Feb 22 2012 Sean Laurent 1.3.0-0
