@@ -17,7 +17,7 @@ Source4:        sysconfig-elasticsearch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       jpackage-utils
-Requires:       java
+Requires:       jre
 
 Requires(post): chkconfig initscripts
 Requires(pre):  chkconfig initscripts
