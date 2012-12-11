@@ -3,7 +3,7 @@
 
 Name:           elasticsearch
 Version:        0.20.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 10 2012 tavisto@tavisto.net 0.20.1-1
+- Changed the dependancy of java to jre to be more compatible with Sun Java
+
 * Mon Dec 10 2012 tavisto@tavisto.net 0.20.1-1
 - New upstream version
 
