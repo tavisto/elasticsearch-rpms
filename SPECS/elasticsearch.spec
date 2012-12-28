@@ -2,14 +2,14 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           elasticsearch
-Version:        0.20.1
+Version:        0.20.2
 Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.elasticsearch.com
-Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.tar.gz
+Source0:        http://download.elasticsearch.org/%{name}/%{name}/%{name}-%{version}.tar.gz
 Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Dec 28 2012 chris@chrisschuld.com 0.20.2
+- New upstream version
+
 * Mon Dec 10 2012 tavisto@tavisto.net 0.20.1-1
 - Changed the dependancy of java to jre to be more compatible with Sun Java
 
