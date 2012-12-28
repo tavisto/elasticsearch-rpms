@@ -9,7 +9,7 @@ Summary:        A distributed, highly available, RESTful search engine
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            http://www.elasticsearch.com
-Source0:        https://github.com/downloads/%{name}/%{name}/%{name}-%{version}.tar.gz
+Source0:        http://download.elasticsearch.org/%{name}/%{name}/%{name}-%{version}.tar.gz
 Source1:        init.d-elasticsearch
 Source2:        logrotate.d-elasticsearch
 Source3:        config-logging.yml

@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/cloud-aws/elasticsearch-cloud-aws-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/cloud-aws/elasticsearch-cloud-aws.jar
-%{__install} -D -m 755 plugins/cloud-aws/aws-java-sdk-1.3.18.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/aws-java-sdk-1.3.26.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
 %{__install} -D -m 755 plugins/cloud-aws/commons-logging-1.1.1.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
 %{__install} -D -m 755 plugins/cloud-aws/commons-codec-1.3.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
 %{__install} -D -m 755 plugins/cloud-aws/httpclient-4.1.1.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
