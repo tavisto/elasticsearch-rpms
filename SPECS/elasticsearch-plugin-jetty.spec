@@ -13,7 +13,7 @@ Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            https://github.com/sonian/elasticsearch-jetty
 
-Source0:        https://github.com/downloads/sonian/elasticsearch-jetty/elasticsearch-jetty-%{version}.zip
+Source0:        https://download.elasticsearch.org/sonian/elasticsearch-jetty/elasticsearch-jetty-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
