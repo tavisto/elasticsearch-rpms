@@ -13,7 +13,7 @@ Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            https://github.com/elasticsearch/elasticsearch-lang-python
 
-Source0:        https://github.com/downloads/elasticsearch/elasticsearch-lang-python/elasticsearch-lang-python-%{version}.zip
+Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-lang-python/elasticsearch-lang-python-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 

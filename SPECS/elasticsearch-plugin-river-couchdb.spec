@@ -13,7 +13,7 @@ Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            https://github.com/elasticsearch/elasticsearch-river-couchdb
 
-Source0:        https://github.com/downloads/elasticsearch/elasticsearch-river-couchdb/elasticsearch-river-couchdb-%{version}.zip
+Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-river-couchdb/elasticsearch-river-couchdb-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
