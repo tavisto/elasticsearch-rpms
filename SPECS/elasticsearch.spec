@@ -2,7 +2,7 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           elasticsearch
-Version:        0.20.2
+Version:        0.20.4
 Release:        2%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
@@ -117,6 +117,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 29 2013 tavisto@tavisto.net 0.20.4-1
+- New upstream version
+
 * Mon Dec 28 2012 chris@chrisschuld.com 0.20.2
 - New upstream version
 
