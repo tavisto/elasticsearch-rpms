@@ -11,7 +11,7 @@ everything from source and using any other previously packaged libraries.
 There were some glaring omissions from the package tree in order to use this
 one. 
 
-h2. These pacakges are not tested by anyone but me. There are many people using them, but use at your
+h2. These packages are not tested by anyone but me. There are many people using them, but use at your
 own risk. 
 
 h3. Please file an issue if you try and use these and something doesn't work
