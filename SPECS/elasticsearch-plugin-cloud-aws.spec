@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-cloud-aws
-Version:        1.10.0
+Version:        1.12.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to use EC2 and S3
 
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-c
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The AWS Cloud plugin allows to use AWS EC2 API for the
@@ -38,11 +38,11 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/cloud-aws/elasticsearch-cloud-aws-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/cloud-aws/elasticsearch-cloud-aws.jar
-%{__install} -D -m 755 plugins/cloud-aws/aws-java-sdk-1.3.26.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
-%{__install} -D -m 755 plugins/cloud-aws/commons-logging-1.1.1.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
-%{__install} -D -m 755 plugins/cloud-aws/commons-codec-1.3.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
-%{__install} -D -m 755 plugins/cloud-aws/httpclient-4.1.1.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
-%{__install} -D -m 755 plugins/cloud-aws/httpcore-4.1.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/aws-java-sdk-*.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/commons-logging-*.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/commons-codec-*.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/httpclient-*.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
+%{__install} -D -m 755 plugins/cloud-aws/httpcore-*.jar -t %{buildroot}/%{base_install_dir}/plugins/cloud-aws
 
 %files
 %defattr(-,root,root,-)
@@ -50,6 +50,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/cloud-aws/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.12.0-1
+- New upstream version
+
 * Fri Dec 28 2012 Chris Schuld chris@chrisschuld.com 1.10.0
 - New upstream version
 
@@ -62,4 +65,3 @@ cd %{name}-%{version}
 
 * Tue Feb 22 2012 Sean Laurent 1.3.0-0
 - Initial package
-

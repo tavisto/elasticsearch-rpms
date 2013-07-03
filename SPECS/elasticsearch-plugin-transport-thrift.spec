@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-transport-thrift
-Version:        1.4.0
+Version:        1.5.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to use the REST interface over thrift
 
@@ -17,11 +17,11 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-t
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19.9
+Requires:       elasticsearch >= 0.90
 
 %description
-The memcached transport plugin allows to use
-the REST interface over thrift on top of HTTP.
+The thrift transport plugin allows to use the REST interface
+over thrift on top of HTTP.
 
 %prep
 rm -fR %{name}-%{version}
@@ -38,10 +38,10 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/transport-thrift/elasticsearch-transport-thrift-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/transport-thrift/elasticsearch-transport-thrift.jar
-%{__install} -D -m 755 plugins/transport-thrift/libthrift-0.9.0.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
-%{__install} -D -m 755 plugins/transport-thrift/slf4j-api-1.6.2.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
-%{__install} -D -m 755 plugins/transport-thrift/slf4j-log4j12-1.6.2.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
-%{__install} -D -m 755 plugins/transport-thrift/commons-lang-2.5.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
+%{__install} -D -m 755 plugins/transport-thrift/libthrift-*.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
+%{__install} -D -m 755 plugins/transport-thrift/slf4j-api-*.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
+%{__install} -D -m 755 plugins/transport-thrift/slf4j-log4j*.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
+%{__install} -D -m 755 plugins/transport-thrift/commons-lang-*.jar -t %{buildroot}/%{base_install_dir}/plugins/transport-thrift/
 
 %files
 %defattr(-,root,root,-)
@@ -49,6 +49,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/transport-thrift/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.5.0-1
+- New upstream version
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.4.0-1
 - New upstream version
 - Fixed base_install_dir
@@ -58,3 +61,4 @@ cd %{name}-%{version}
 
 * Tue Feb 22 2012 Sean Laurent 1.1.0-0
 - Initial package
+

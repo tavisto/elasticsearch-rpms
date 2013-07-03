@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-analysis-icu
-Version:        1.7.0
+Version:        1.10.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin for Lucene ICU
 
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-a
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90.1
 
 %description
 The ICU Analysis plugin for ElasticSearch integrates Lucene ICU module
@@ -38,8 +38,9 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/analysis-icu/elasticsearch-analysis-icu-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/analysis-icu/elasticsearch-analysis-icu.jar
-%{__install} -m 755 plugins/analysis-icu/lucene-icu-*.jar -t %{buildroot}/%{base_install_dir}/plugins/analysis-icu
+%{__install} -m 755 plugins/analysis-icu/lucene-*.jar -t %{buildroot}/%{base_install_dir}/plugins/analysis-icu
 %{__install} -m 755 plugins/analysis-icu/icu4j-*.jar -t %{buildroot}/%{base_install_dir}/plugins/analysis-icu
+
 
 %files
 %defattr(-,root,root,-)
@@ -47,6 +48,13 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/analysis-icu/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.10.0-1
+- New upstream version
+
+* Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.7.0-1
+- New upstream version
+- Fixed base_install_dir
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.7.0-1
 - New upstream version
 - Fixed base_install_dir 

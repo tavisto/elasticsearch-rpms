@@ -5,8 +5,8 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-river-twitter
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        ElasticSearch plugin to hook into Twitter
 
 Group:          System Environment/Daemons
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-r
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The Twitter River plugin allows index twitter stream.
@@ -37,8 +37,8 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/river-twitter/elasticsearch-river-twitter-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/river-twitter/elasticsearch-river-twitter.jar
-%{__install} -D -m 755 plugins/river-twitter/twitter4j-stream-2.2.5.jar -t %{buildroot}/%{base_install_dir}/plugins/river-twitter/
-%{__install} -D -m 755 plugins/river-twitter/twitter4j-core-2.2.5.jar -t %{buildroot}/%{base_install_dir}/plugins/river-twitter/
+%{__install} -D -m 755 plugins/river-twitter/twitter4j-stream-*.jar -t %{buildroot}/%{base_install_dir}/plugins/river-twitter/
+%{__install} -D -m 755 plugins/river-twitter/twitter4j-core-*.jar -t %{buildroot}/%{base_install_dir}/plugins/river-twitter/
 
 %files
 %defattr(-,root,root,-)
@@ -46,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/river-twitter/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.4.0-1
+- New upstream version
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-2
 - Fixed base_install_dir
 
