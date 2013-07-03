@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-river-rabbitmq
-Version:        1.4.0
+Version:        1.6.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to hook into RabbitMQ
 
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-r
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The RabbitMQ River plugin allows index
@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/river-rabbitmq/elasticsearch-river-rabbitmq-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/elasticsearch-river-rabbitmq.jar
-%{__install} -D -m 755 plugins/river-rabbitmq/amqp-client-2.8.4.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
+%{__install} -D -m 755 plugins/river-rabbitmq/amqp-client-*.jar -t %{buildroot}/%{base_install_dir}/plugins/river-rabbitmq/
 
 %files
 %defattr(-,root,root,-)
@@ -46,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/river-rabbitmq/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.6.0-1
+- New upstream version
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.4.0-1
 - New upstream version
 
@@ -54,4 +57,3 @@ cd %{name}-%{version}
 
 * Tue Feb 22 2012 Sean Laurent 1.1.0-0
 - Initial package
-

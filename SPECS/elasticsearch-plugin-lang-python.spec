@@ -5,8 +5,8 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-lang-python
-Version:        1.1.0
-Release:        2%{?dist}
+Version:        1.2.0
+Release:        1%{?dist}
 Summary:        ElasticSearch plugin to use Python for script execution
 
 Group:          System Environment/Daemons
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-l
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The Groovy language plugin allows to have Python
@@ -38,7 +38,7 @@ rm -rf $RPM_BUILD_ROOT
 cd %{name}-%{version}
 %{__mkdir} -p %{buildroot}/%{base_install_dir}/plugins
 %{__install} -D -m 755 plugins/lang-python/elasticsearch-lang-python-%{version}.jar %{buildroot}/%{base_install_dir}/plugins/lang-python/elasticsearch-lang-python.jar
-%{__install} -D -m 755 plugins/lang-python/jython-standalone-2.5.2.jar -t %{buildroot}/%{base_install_dir}/plugins/lang-python/
+%{__install} -D -m 755 plugins/lang-python/jython-standalone-*.jar -t %{buildroot}/%{base_install_dir}/plugins/lang-python/
 
 %files
 %defattr(-,root,root,-)
@@ -46,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/lang-python/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.2.0-1
+- New upstream version
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.1.0-2
 - Fixed base_install_dir
 
@@ -54,5 +57,4 @@ cd %{name}-%{version}
 
 * Tue Feb 22 2012 Sean Laurent 1.1.0-0
 - Initial package
-
 

@@ -5,7 +5,7 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-mapper-attachments
-Version:        1.6.0
+Version:        1.7.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to add attachment type
 
@@ -17,7 +17,7 @@ Source0:        https://download.elasticsearch.org/elasticsearch/elasticsearch-m
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The mapper attachments plugin adds the
@@ -46,6 +46,9 @@ cd %{name}-%{version}
 %{base_install_dir}/plugins/mapper-attachments/*
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 1.7.0-1
+- New upstream version
+
 * Tue Nov 27 2012 Tavis Aitken tavisto@tavisto.net 1.6.0-1
 - New upstream version
 - Fixed base_install_dir

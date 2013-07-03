@@ -5,19 +5,19 @@
 %define __os_install_post %{nil}
 
 Name:           elasticsearch-plugin-jetty
-Version:        0.19.8
+Version:        0.90.0
 Release:        1%{?dist}
 Summary:        ElasticSearch plugin to add attachment type
 
 Group:          System Environment/Daemons
 License:        ASL 2.0
 URL:            https://github.com/sonian/elasticsearch-jetty
-
-Source0:        https://download.elasticsearch.org/sonian/elasticsearch-jetty/elasticsearch-jetty-%{version}.zip
+Source0:  https://oss-es-plugins.s3.amazonaws.com/elasticsearch-jetty/elasticsearch-jetty-%{version}.zip
+#Source0:        https://download.elasticsearch.org/sonian/elasticsearch-jetty/elasticsearch-jetty-%{version}.zip
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 BuildArch:      noarch
 
-Requires:       elasticsearch >= 0.19
+Requires:       elasticsearch >= 0.90
 
 %description
 The elasticsearch-jetty plugin brings full power of Jetty and adds several new features to elasticsearch. With this plugin elasticsearch can now handle SSL connections, support basic authentication, and log all or some incoming requests in plain text or json formats.
@@ -51,6 +51,9 @@ cd %{name}-%{version}
 %config(noreplace) %{_sysconfdir}/elasticsearch/plugins/jetty/jetty.xml
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 0.90.0-1
+- New upstream version
+
 * Tue Aug 21 2012 Manuel Vacelet <manuel.vacelet@enalean.com> - 0.19.8-1
 - Initial package
 

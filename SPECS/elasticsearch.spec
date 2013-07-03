@@ -2,8 +2,8 @@
 %define base_install_dir %{_javadir}{%name}
 
 Name:           elasticsearch
-Version:        0.20.4
-Release:        3%{?dist}
+Version:        0.90.2
+Release:        1%{?dist}
 Summary:        A distributed, highly available, RESTful search engine
 
 Group:          System Environment/Daemons
@@ -16,8 +16,7 @@ Source3:        config-logging.yml
 Source4:        sysconfig-elasticsearch
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       jpackage-utils
-Requires:       jre >= 1.6.0
+Requires:       jdk
 
 Requires(post): chkconfig initscripts
 Requires(pre):  chkconfig initscripts
@@ -117,6 +116,9 @@ rm -rf $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jul 03 2013 Nathan Milford <nathan@milford.io> 0.90.2
+- Bumped version. 
+
 * Wed Jan 30 2013 tavisto@tavisto.net 0.20.4-3
 - Updated the jre requires to properly pull in jre >= 1.6.0
 
@@ -211,3 +213,4 @@ rm -rf $RPM_BUILD_ROOT
 
 * Tue Jan 4 2011 Tavis Aitken <tavisto@tavisto.net> - 0.14.1-1
 - Initial package
+
